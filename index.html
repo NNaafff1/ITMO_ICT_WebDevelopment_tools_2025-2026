@@ -1349,9 +1349,9 @@ from src.auth import get_password_hash, verify_password</p>
 <h3 id="3_1">Практика 3 — Аутентификация</h3>
 <p>Файл practice_3/src/main.py демонстрирует реализацию JWT-аутентификации в FastAPI: регистрацию пользователей с хэшированием паролей (bcrypt), генерацию JWT-токенов при входе, защиту эндпоинтов через зависимости, разделение публичных и приватных маршрутов, работу с OAuth2PasswordBearer.</p>
 <h3 id="_7">Скриншоты практик</h3>
-<p><img alt="Practice 1" src="screenshots/practice1.png" /></p>
-<p><img alt="Practice 2" src="screenshots/practice2.png" /></p>
-<p><img alt="Practice 3" src="screenshots/practice3.png" /></p>
+<p><img alt="Practice 1" src="screenshots/practice1.jpg" /></p>
+<p><img alt="Practice 2" src="screenshots/practice2.jpg" /></p>
+<p><img alt="Practice 3" src="screenshots/practice3.jpg" /></p>
 <h2 id="8">8. Инструкция по запуску</h2>
 <h1 id="1-postgresql">1. Создать базу данных PostgreSQL</h1>
 <p>psql -U postgres -c "CREATE DATABASE teamfinder;"</p>
@@ -1414,9 +1414,6 @@ cd practice_3 &amp;&amp; uvicorn src.main:app --reload --port 8003</p>
 <p>Особое внимание было уделено реализации связи «многие-ко-многим» между пользователями и навыками через ассоциативную таблицу UserSkill, содержащую дополнительное поле level для характеристики уровня владения навыком. Это демонстрирует работу с составными связями в SQLAlchemy.
 FastAPI показал себя как отличный выбор для данного типа проектов благодаря встроенной поддержке типизации Python, автоматической валидации данных через Pydantic, генерации интерактивной документации Swagger UI, высокой производительности на базе Starlette и ASGI, а также удобной системе dependency injection для управления зависимостями.</p>
 <p>Проект покрыт автоматическими тестами с использованием pytest и httpx, что обеспечивает надежность и воспроизводимость результатов. Тесты используют SQLite в качестве тестовой базы данных, что позволяет запускать их без дополнительной инфраструктуры.</p>
-<h3 id="_16">Результаты тестирования</h3>
-<p><img alt="Tests 26 Passed" src="screenshots/tests_passed.png" /></p>
-<p><img alt="Folder Structure" src="screenshots/folder_structure.png" /></p>
 <h2 id="12-github">12. Ссылки на практики GitHub</h2>
 <table>
 <thead>
