@@ -936,11 +936,11 @@ def get_user_skills(db: Session, user_id: int) -> list[UserSkill]:
 
 ### Скриншоты практик
 
-![Practice 1](screenshots/practice1.png)
+![Practice 1](screenshots/practice1.jpg)
 
-![Practice 2](screenshots/practice2.png)
+![Practice 2](screenshots/practice2.jpg)
 
-![Practice 3](screenshots/practice3.png)
+![Practice 3](screenshots/practice3.jpg)
 
 ## 8. Инструкция по запуску
 
@@ -1028,11 +1028,6 @@ FastAPI показал себя как отличный выбор для дан
 
 Проект покрыт автоматическими тестами с использованием pytest и httpx, что обеспечивает надежность и воспроизводимость результатов. Тесты используют SQLite в качестве тестовой базы данных, что позволяет запускать их без дополнительной инфраструктуры.
 
-### Результаты тестирования
-
-![Tests 26 Passed](screenshots/tests_passed.png)
-
-![Folder Structure](screenshots/folder_structure.png)
 
 ## 12. Ссылки на практики GitHub
 
