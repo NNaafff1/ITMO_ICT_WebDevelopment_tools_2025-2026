@@ -1,0 +1,13 @@
+site_name: Team Finder API — Лабораторная работа 1
+site_url: https://NNaafff1.github.io/ITMO_ICT_WebDevelopment_tools_2025-2026/
+repo_url: https://github.com/NNaafff1/ITMO_ICT_WebDevelopment_tools_2025-2026
+repo_name: NNaafff1/ITMO_ICT_WebDevelopment_tools_2025-2026
+docs_dir: docs
+nav:
+  - Главная: index.md
+theme:
+  name: material
+  language: ru
+  palette:
+    primary: indigo
+    accent: indigo
