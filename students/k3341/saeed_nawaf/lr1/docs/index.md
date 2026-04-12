@@ -150,19 +150,19 @@ GitHub Repository: [https://github.com/NNaafff1/ITMO_ICT_WebDevelopment_tools_20
 
 ### Скриншоты API
 
-![Swagger UI](screenshots/swagger_main.png)
+![Swagger UI](screenshots/swagger_main.jpg)
 
-![Register 201](screenshots/register.png)
+![Register 201](screenshots/register.jpg)
 
-![Login Token](screenshots/login.png)
+![Login Token](screenshots/login.jpg)
 
-![Create Project](screenshots/create_project.png)
+![Create Project](screenshots/create_project.jpg)
 
-![Create Skill](screenshots/create_skill.png)
+![Create Skill](screenshots/create_skill.jpg)
 
-![Get Projects](screenshots/get_projects.png)
+![Get Projects](screenshots/get_projects.jpg)
 
-![Get Users](screenshots/get_users.png)
+![Get Users](screenshots/get_users.jpg)
 
 ## 11. Код реализации
 
