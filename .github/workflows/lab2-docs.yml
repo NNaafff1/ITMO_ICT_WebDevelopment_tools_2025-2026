@@ -1,32 +1,34 @@
 name: Deploy Lab 2 Docs
 
-# Деплой документации Lab 2 на GitHub Pages.
-# Запускается при пуше в lab2 или main, когда меняются файлы lab2/docs/ или mkdocs.yml.
+# Деплоит документацию Lab 2 в ветку gh-pages в подпапку lr2/,
+# НЕ затрагивая существующий сайт Lab 1 в корне.
+#
+# Итоговый URL:
+#   https://nnaafff1.github.io/ITMO_ICT_WebDevelopment_tools_2025-2026/lr2/
 
 on:
   push:
     branches: [lab2, main, master]
     paths:
-      - 'lab2/docs/**'
-      - 'lab2/mkdocs.yml'
+      - 'students/k3341/saeed_nawaf/lr2/**'
       - '.github/workflows/lab2-docs.yml'
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: "pages"
+  group: "pages-lab2"
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -36,22 +38,15 @@ jobs:
       - name: Install mkdocs
         run: pip install mkdocs mkdocs-material
 
-      - name: Build docs
-        working-directory: lab2
-        run: mkdocs build --site-dir ../_site
+      - name: Build Lab 2 docs
+        working-directory: students/k3341/saeed_nawaf/lr2
+        run: mkdocs build --site-dir ../../../../_site_lr2
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to gh-pages /lr2/
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: _site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site_lr2
+          destination_dir: lr2
+          keep_files: true
+          commit_message: "deploy: lab2 docs to /lr2/"
