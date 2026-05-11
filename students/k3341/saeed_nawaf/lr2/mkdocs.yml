@@ -1,0 +1,37 @@
+site_name: Лабораторная работа 2 — Потоки, Процессы, Асинхронность
+docs_dir: docs
+
+# Меняется на реальный URL после первого деплоя GitHub Pages.
+# Для отдельного сайта по lab2 URL будет вида:
+#   https://<USER>.github.io/<REPO>/lab2/
+# (это зависит от того, как настроен GitHub Pages в репозитории).
+
+nav:
+  - Главная: index.md
+  - Теория: theory.md
+  - Задача 1 — Сумма: task1.md
+  - Задача 2 — Парсинг: task2.md
+  - Выводы: conclusion.md
+  - Скриншоты: screenshots.md
+  - Запуск: usage.md
+
+theme:
+  name: material
+  language: ru
+  palette:
+    primary: indigo
+    accent: indigo
+  features:
+    - navigation.tabs
+    - navigation.top
+    - content.code.copy
+    - toc.integrate
+
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - tables
+  - toc:
+      permalink: true
