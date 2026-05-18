@@ -1,0 +1,78 @@
+# Оркестратор пяти сервисов Lab 3:
+#   db      — PostgreSQL 15 (та же БД teamfinder из Lab 1)
+#   redis   — брокер задач и хранилище результатов Celery
+#   api     — основное FastAPI приложение (Lab 1 + новый /parser-роут)
+#   parser  — отдельное FastAPI приложение для парсинга Wikipedia
+#   worker  — Celery-воркер, обрабатывает фоновые задачи из очереди
+#
+# Запуск:        docker compose up --build
+# Остановка:    docker compose down            (данные БД сохраняются)
+# С нуля:        docker compose down -v        (удаляет volume с БД)
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ${DB_NAME:-teamfinder}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      # pg_isready возвращает 0 когда сервер готов принимать соединения
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-teamfinder}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build: ./api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@db:5432/${DB_NAME:-teamfinder}
+      SECRET_KEY: ${SECRET_KEY:-change_me_in_production_please}
+      PARSER_URL: http://parser:8001
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      parser:
+        condition: service_started
+
+  parser:
+    build: ./parser_service
+    ports:
+      - "8001:8001"
+    # У парсера нет зависимостей — он stateless и ничего не ждёт.
+
+  worker:
+    build: ./worker
+    environment:
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@db:5432/${DB_NAME:-teamfinder}
+      REDIS_URL: redis://redis:6379/0
+      PARSER_URL: http://parser:8001
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      parser:
+        condition: service_started
+
+volumes:
+  postgres_data:

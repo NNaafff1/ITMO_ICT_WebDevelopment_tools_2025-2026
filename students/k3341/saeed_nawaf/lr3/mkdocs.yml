@@ -1,0 +1,38 @@
+site_name: Лабораторная работа 3 — Docker, парсер по HTTP, Celery
+site_url: https://nnaafff1.github.io/ITMO_ICT_WebDevelopment_tools_2025-2026/lr3/
+docs_dir: docs
+
+# Подкаталог /lr3/ — поэтому use_directory_urls + site_url выше гарантируют,
+# что все ссылки на ассеты будут абсолютными и не будут ломаться внутри подпути.
+use_directory_urls: true
+
+nav:
+  - Главная: index.md
+  - Архитектура: architecture.md
+  - Docker и compose: docker.md
+  - Сервис-парсер: parser_service.md
+  - Celery и Redis: celery.md
+  - Запуск: usage.md
+  - Скриншоты: screenshots.md
+  - Выводы: conclusion.md
+
+theme:
+  name: material
+  language: ru
+  palette:
+    primary: indigo
+    accent: indigo
+  features:
+    - navigation.tabs
+    - navigation.top
+    - content.code.copy
+    - toc.integrate
+
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - tables
+  - toc:
+      permalink: true
