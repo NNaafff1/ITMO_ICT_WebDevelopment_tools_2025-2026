@@ -615,17 +615,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#swagger-ui-" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Swagger UI сервиса-парсера
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -638,28 +627,6 @@
       
         <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Асинхронный парсинг — постановка задачи
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Опрос статуса задачи
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Логи воркера
@@ -733,36 +700,26 @@
 
 
 <h1 id="_1">Скриншоты<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>Иллюстрации работы системы. Скриншоты нужно положить в
-<code>docs/screenshots/</code> под этими именами:</p>
+<p>Иллюстрации работы системы.</p>
 <h2 id="_2">Запущенные сервисы<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p><code>docker compose ps</code> — пять сервисов в статусе <code>running</code>.</p>
+<p>docker compose ps — пять сервисов в статусе running.</p>
 <p><img alt="Compose status" src="compose_ps.png" /></p>
 <h2 id="swagger-ui-api">Swagger UI основного API<a class="headerlink" href="#swagger-ui-api" title="Permanent link">&para;</a></h2>
-<p><code>http://localhost:8000/docs</code> — видны все группы эндпоинтов,
-включая раздел <strong>Parser</strong> с тремя маршрутами.</p>
+<p>http://localhost:8000/docs — видны все группы эндпоинтов,
+включая раздел Parser с тремя маршрутами.</p>
 <p><img alt="API Swagger" src="api_swagger.png" /></p>
-<h2 id="swagger-ui-">Swagger UI сервиса-парсера<a class="headerlink" href="#swagger-ui-" title="Permanent link">&para;</a></h2>
-<p><code>http://localhost:8001/docs</code> — единственный содержательный эндпоинт
-<code>POST /parse</code>.</p>
-<p><img alt="Parser Swagger" src="screenshots/parser_swagger.png" /></p>
 <h2 id="_3">Синхронный парсинг<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p><code>POST /parser/parse</code> через Swagger UI или curl. В ответе видно
+<p>POST /parser/parse через Swagger UI или curl. В ответе видно
 созданный skill.</p>
 <p><img alt="Sync parse" src="sync_parse.png" /></p>
-<h2 id="_4">Асинхронный парсинг — постановка задачи<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p><code>POST /parser/parse-async</code> — ответ с <code>task_id</code> и статусом <code>queued</code>.</p>
-<p><img alt="Async parse queued" src="screenshots/async_queued.png" /></p>
-<h2 id="_5">Опрос статуса задачи<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p><code>GET /parser/tasks/{id}</code> — задача в статусе <code>SUCCESS</code> и результат.</p>
-<p><img alt="Task status" src="screenshots/task_status.png" /></p>
-<h2 id="_6">Логи воркера<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<p><code>docker compose logs -f worker</code> — Celery принимает и завершает задачу.</p>
+<h2 id="_4">Логи воркера<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>docker compose logs -f worker — Celery принимает и завершает задачу.</p>
 <p><img alt="Worker logs" src="worker_logs.png" /></p>
 <h2 id="skills">Содержимое таблицы skills<a class="headerlink" href="#skills" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>teamfinder<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>-c<span class="w"> </span><span class="s2">&quot;SELECT id, name, LEFT(description, 60) FROM skills ORDER BY id;&quot;</span>
-</code></pre></div>
+<p>```bash
+docker compose exec db psql -U postgres -d teamfinder \
+  -c "SELECT id, name, LEFT(description, 60) || '...' AS description FROM skills ORDER BY id;"
+```</p>
 <p>Записи появились после успешного парсинга.</p>
 <p><img alt="DB skills" src="db_skills.png" /></p>
 
