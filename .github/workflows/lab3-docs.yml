@@ -1,0 +1,52 @@
+name: Deploy Lab 3 Docs
+
+# Деплоит документацию Lab 3 в ветку gh-pages в подпапку lr3/.
+# Не затрагивает существующие сайты Lab 1 (корень) и Lab 2 (/lr2/).
+#
+# Итоговый URL:
+#   https://nnaafff1.github.io/ITMO_ICT_WebDevelopment_tools_2025-2026/lr3/
+
+on:
+  push:
+    branches: [lab3, main, master]
+    paths:
+      - 'students/k3341/saeed_nawaf/lr3/**'
+      - '.github/workflows/lab3-docs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "pages-lab3"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install mkdocs
+        run: pip install mkdocs mkdocs-material
+
+      - name: Build Lab 3 docs
+        working-directory: students/k3341/saeed_nawaf/lr3
+        run: mkdocs build --site-dir ../../../../_site_lr3
+
+      - name: Deploy to gh-pages /lr3/
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site_lr3
+          destination_dir: lr3
+          keep_files: true
+          commit_message: "deploy: lab3 docs to /lr3/"
